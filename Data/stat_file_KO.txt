@@ -1,0 +1,1012 @@
+
+*** DEVICE (GeForce GTX 1650 with Max-Q Design) (2020-10-18 23: 2:11)
+--- IMAGE = 8(Data/Input/Grass_texture_2048_2048.jpg), GF_SIZE = 7, N_EXE = 7,
+     KER = 111, GWS = (2048, 2048), LWS = (32, 16), Ave_time(S_to_E): 7.069ms
+
+*** DEVICE (NVIDIA GeForce GTX 1650 with Max-Q Design) (2021- 9- 9 15:55:21)
+--- IMAGE = 8(Data/Input/Grass_texture_2048_2048.jpg), GF_SIZE = 7, N_EXE = 7,
+     KER = 111, GWS = (2048, 2048), LWS = (32, 16), Ave_time(S_to_E): 6.946ms
+
+*** DEVICE (NVIDIA GeForce GTX 1650 with Max-Q Design) (2021- 9- 9 16: 1: 0)
+--- IMAGE = 8(Data/Input/Grass_texture_2048_2048.jpg), GF_SIZE = 7, N_EXE = 7,
+     KER = 111, GWS = (2048, 2048), LWS = (32, 16), Ave_time(S_to_E): 7.196ms
+
+*** DEVICE (Bonaire) (2021-11- 1 23: 6:33)
+
+*** DEVICE (Bonaire) (2021-11- 1 23: 9:37)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:10:59)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:16:27)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:25:36)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:36:32)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:40:13)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:54:30)
+
+*** DEVICE (Bonaire) (2021-11- 1 23:57:16)
+
+*** DEVICE (Bonaire) (2021-11- 2 11: 6:12)
+
+*** DEVICE (Bonaire) (2021-11- 2 11: 8:18)
+
+*** DEVICE (Bonaire) (2021-11- 2 11:24:57)
+--- , Ave_time(S_to_E): 1.758ms
+
+*** DEVICE (Bonaire) (2021-11- 2 12:26: 3)
+--- , Ave_time(S_to_E): 4.664ms
+
+*** DEVICE (Bonaire) (2021-11- 2 12:28:28)
+
+*** DEVICE (Bonaire) (2021-11- 2 12:29:31)
+
+*** DEVICE (Bonaire) (2021-11- 2 12:32:20)
+
+*** DEVICE (Bonaire) (2021-11- 2 12:44:13)
+
+*** DEVICE (Bonaire) (2021-11- 2 12:46: 1)
+--- , Ave_time(S_to_E): 4.648ms
+
+*** DEVICE (Bonaire) (2021-11- 2 12:57:49)
+--- , Ave_time(S_to_E): 4.708ms
+
+*** DEVICE (Bonaire) (2021-11- 2 12:58:17)
+--- , Ave_time(S_to_E): 2.779ms
+
+*** DEVICE (Bonaire) (2021-11- 2 12:58:56)
+
+*** DEVICE (Bonaire) (2021-11- 2 12:59:10)
+
+*** DEVICE (Bonaire) (2021-11- 2 13: 0:16)
+--- , Ave_time(S_to_E): 2.238ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13: 2:47)
+--- , Ave_time(S_to_E): 2.214ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13: 4:52)
+--- , Ave_time(S_to_E): 2.217ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:11:10)
+--- , Ave_time(S_to_E): 2.177ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:13:14)
+--- , Ave_time(S_to_E): 2.208ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:19:55)
+--- , Ave_time(S_to_E): 4.089ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:22:12)
+
+*** DEVICE (Bonaire) (2021-11- 2 13:22:34)
+--- , Ave_time(S_to_E): 4.064ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:24:43)
+--- , Ave_time(S_to_E): 17.049ms
+
+*** DEVICE (Bonaire) (2021-11- 2 13:29:10)
+--- , Ave_time(S_to_E): 15.629ms
+
+*** DEVICE (Bonaire) (2021-11- 2 14: 4:16)
+--- , Ave_time(S_to_E): 13.719ms
+
+*** DEVICE (Bonaire) (2021-11- 2 16: 6:10)
+--- , Ave_time(S_to_E): 2.384ms
+
+*** DEVICE (Bonaire) (2021-11- 2 16: 8:34)
+--- , Ave_time(S_to_E): 0.721ms
+
+*** DEVICE (Bonaire) (2021-11- 2 16:10:49)
+--- , Ave_time(S_to_E): 0.520ms
+
+*** DEVICE (Bonaire) (2021-11- 2 16:16: 3)
+--- , Ave_time(S_to_E): 0.382ms
+
+*** DEVICE (Bonaire) (2021-11- 2 18:27:30)
+
+*** DEVICE (Bonaire) (2021-11- 2 18:29:16)
+
+*** DEVICE (Bonaire) (2021-11- 2 18:39:50)
+--- , Ave_time(S_to_E): 0.622ms
+
+*** DEVICE (Bonaire) (2021-11- 2 18:42:35)
+--- , Ave_time(S_to_E): 0.617ms
+
+*** DEVICE (Bonaire) (2021-11- 2 18:42:52)
+--- , Ave_time(S_to_E): 1.468ms
+
+*** DEVICE (Bonaire) (2021-11- 2 18:50:51)
+--- , Ave_time(S_to_E): 1.461ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:26:34)
+--- , Ave_time(S_to_E): 39.183ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:28:56)
+--- , Ave_time(S_to_E): 40.396ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:31:23)
+--- , Ave_time(S_to_E): 34.685ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:32:29)
+--- , Ave_time(S_to_E): 18.765ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:38:59)
+--- , Ave_time(S_to_E): 35.339ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:47:37)
+--- , Ave_time(S_to_E): 36.301ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:54:56)
+--- , Ave_time(S_to_E): 32.956ms
+
+*** DEVICE (Bonaire) (2021-11- 2 19:56:52)
+--- , Ave_time(S_to_E): 24.280ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20: 1:17)
+--- , Ave_time(S_to_E): 15.244ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20: 2:21)
+--- , Ave_time(S_to_E): 27.504ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20: 6:24)
+--- , Ave_time(S_to_E): 30.088ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20: 8:16)
+--- , Ave_time(S_to_E): 14.695ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20:10:48)
+--- , Ave_time(S_to_E): 26.548ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20:16:29)
+--- , Ave_time(S_to_E): 26.865ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20:17:51)
+--- , Ave_time(S_to_E): 27.024ms
+
+*** DEVICE (Bonaire) (2021-11- 2 20:21: 8)
+--- , Ave_time(S_to_E): 13.575ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:24:25)
+--- , Ave_time(S_to_E): 13.976ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:26:13)
+--- , Ave_time(S_to_E): 13.881ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:26:59)
+--- , Ave_time(S_to_E): 15.559ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:28:21)
+--- , Ave_time(S_to_E): 15.237ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:29:36)
+--- , Ave_time(S_to_E): 14.953ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:39:18)
+--- , Ave_time(S_to_E): 4.443ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:44:31)
+--- , Ave_time(S_to_E): 14.537ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:45:50)
+--- , Ave_time(S_to_E): 14.831ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:47: 0)
+--- , Ave_time(S_to_E): 12.363ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:48:15)
+--- , Ave_time(S_to_E): 5.491ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:48:51)
+--- , Ave_time(S_to_E): 14.137ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:49:49)
+--- , Ave_time(S_to_E): 15.315ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:50:18)
+--- , Ave_time(S_to_E): 15.270ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:53:30)
+--- , Ave_time(S_to_E): 7.064ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:54: 4)
+--- , Ave_time(S_to_E): 16.013ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:54:41)
+--- , Ave_time(S_to_E): 17.902ms
+
+*** DEVICE (Bonaire) (2021-11- 2 21:55:11)
+--- , Ave_time(S_to_E): 15.602ms
+
+*** DEVICE (Bonaire) (2021-11- 2 22:12:28)
+--- , Ave_time(S_to_E): 9.724ms
+
+*** DEVICE (Bonaire) (2021-11- 2 22:16:31)
+--- , Ave_time(S_to_E): 13.146ms
+
+*** DEVICE (Bonaire) (2021-11-17 16:39: 0)
+--- , Ave_time(S_to_E): 36.561ms
+
+*** DEVICE (Bonaire) (2021-11-17 16:44:26)
+--- , Ave_time(S_to_E): 25.363ms
+
+*** DEVICE (Bonaire) (2021-11-17 16:50:18)
+--- , Ave_time(S_to_E): 17.613ms
+
+*** DEVICE (Bonaire) (2021-11-17 20:32:46)
+--- , Ave_time(S_to_E): 22.717ms
+
+*** DEVICE (Bonaire) (2021-11-17 20:37:33)
+--- , Ave_time(S_to_E): 17.845ms
+
+*** DEVICE (Bonaire) (2021-11-17 20:41:59)
+--- , Ave_time(S_to_E): 9.378ms
+
+*** DEVICE (Bonaire) (2021-11-17 20:46: 3)
+--- , Ave_time(S_to_E): 24.131ms
+
+*** DEVICE (Bonaire) (2021-11-17 20:47:55)
+--- , Ave_time(S_to_E): 23.641ms
+
+*** DEVICE (Bonaire) (2021-11-17 21:27:26)
+--- , Ave_time(S_to_E): 17.412ms
+
+*** DEVICE (Bonaire) (2021-11-17 22:35: 7)
+--- , Ave_time(S_to_E): 51.238ms
+
+*** DEVICE (Bonaire) (2021-11-17 22:35:55)
+--- , Ave_time(S_to_E): 59.267ms
+
+*** DEVICE (Bonaire) (2021-11-17 23: 1:48)
+--- , Ave_time(S_to_E): 13.885ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:31:53)
+--- , Ave_time(S_to_E): 27.497ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:40: 5)
+--- , Ave_time(S_to_E): 14.538ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:41:34)
+--- , Ave_time(S_to_E): 34.908ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:42:25)
+--- , Ave_time(S_to_E): 32.129ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:45: 5)
+--- , Ave_time(S_to_E): 13.583ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:45:42)
+--- , Ave_time(S_to_E): 14.326ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:51: 7)
+--- , Ave_time(S_to_E): 24.170ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:51:28)
+--- , Ave_time(S_to_E): 52.584ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:51:59)
+--- , Ave_time(S_to_E): 26.747ms
+
+*** DEVICE (Bonaire) (2021-11-17 23:52:21)
+--- , Ave_time(S_to_E): 35.139ms
+
+*** DEVICE (Bonaire) (2021-11-18 16:25: 9)
+--- , Ave_time(S_to_E): 96.242ms
+
+*** DEVICE (Bonaire) (2021-11-18 16:27:58)
+--- , Ave_time(S_to_E): 27.069ms
+
+*** DEVICE (Bonaire) (2021-11-18 16:28:22)
+--- , Ave_time(S_to_E): 27.184ms
+
+*** DEVICE (Bonaire) (2021-11-18 16:31:28)
+--- , Ave_time(S_to_E): 36.762ms
+
+*** DEVICE (Bonaire) (2021-11-19  9:38:51)
+
+*** DEVICE (Bonaire) (2021-11-19  9:39:18)
+--- , Ave_time(S_to_E): 18.037ms
+
+*** DEVICE (Bonaire) (2021-11-19  9:39:56)
+--- , Ave_time(S_to_E): 12.748ms
+
+*** DEVICE (Bonaire) (2021-11-19  9:53:50)
+--- , Ave_time(S_to_E): 40.780ms
+
+*** DEVICE (Bonaire) (2021-11-19  9:54:36)
+--- , Ave_time(S_to_E): 30.287ms
+
+*** DEVICE (Bonaire) (2021-11-19  9:55: 7)
+--- , Ave_time(S_to_E): 22.152ms
+
+*** DEVICE (Bonaire) (2021-11-19 10: 4:54)
+--- , Ave_time(S_to_E): 42.816ms
+
+*** DEVICE (Bonaire) (2021-11-19 10: 9: 2)
+
+*** DEVICE (Bonaire) (2021-11-19 10: 9:29)
+--- , Ave_time(S_to_E): 40.488ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:12:37)
+--- , Ave_time(S_to_E): 28.648ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:14:17)
+--- , Ave_time(S_to_E): 28.838ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:17:15)
+
+*** DEVICE (Bonaire) (2021-11-19 10:18:11)
+
+*** DEVICE (Bonaire) (2021-11-19 10:18:51)
+
+*** DEVICE (Bonaire) (2021-11-19 10:19:44)
+
+*** DEVICE (Bonaire) (2021-11-19 10:20:36)
+
+*** DEVICE (Bonaire) (2021-11-19 10:21: 9)
+
+*** DEVICE (Bonaire) (2021-11-19 10:21:20)
+
+*** DEVICE (Bonaire) (2021-11-19 10:21:38)
+
+*** DEVICE (Bonaire) (2021-11-19 10:21:48)
+--- , Ave_time(S_to_E): 28.781ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:23: 4)
+--- , Ave_time(S_to_E): 5902.845ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:25:24)
+--- , Ave_time(S_to_E): 41.221ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:30: 0)
+--- , Ave_time(S_to_E): 28.866ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:31: 2)
+--- , Ave_time(S_to_E): 29.469ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:32:34)
+--- , Ave_time(S_to_E): 53.279ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:33:13)
+--- , Ave_time(S_to_E): 47.359ms
+
+*** DEVICE (Bonaire) (2021-11-19 10:59:54)
+
+*** DEVICE (Bonaire) (2021-11-19 11: 1: 4)
+
+*** DEVICE (Bonaire) (2021-11-19 11:59:41)
+--- , Ave_time(S_to_E): 60.115ms
+
+*** DEVICE (Bonaire) (2021-11-19 12: 0:22)
+--- , Ave_time(S_to_E): 31.489ms
+
+*** DEVICE (Bonaire) (2021-11-19 15:29:53)
+
+*** DEVICE (Bonaire) (2021-11-19 15:35:17)
+
+*** DEVICE (Bonaire) (2021-11-19 15:35:31)
+
+*** DEVICE (Bonaire) (2021-11-19 15:55:34)
+
+*** DEVICE (Bonaire) (2021-11-19 15:55:47)
+
+*** DEVICE (Bonaire) (2021-11-19 15:55:55)
+
+*** DEVICE (Bonaire) (2021-11-19 16: 2:39)
+
+*** DEVICE (Bonaire) (2021-11-19 16:20:55)
+--- , Ave_time(S_to_E): 109.803ms
+
+*** DEVICE (Bonaire) (2021-11-19 16:25:29)
+--- , Ave_time(S_to_E): 129.288ms
+
+*** DEVICE (Bonaire) (2021-11-19 16:53:27)
+--- , Ave_time(S_to_E): 125.977ms
+
+*** DEVICE (Bonaire) (2021-11-19 16:56:23)
+--- , Ave_time(S_to_E): 388.887ms
+
+*** DEVICE (Bonaire) (2021-11-19 21:45:37)
+--- , Ave_time(S_to_E): 125.969ms
+
+*** DEVICE (Bonaire) (2021-11-19 21:46:27)
+--- , Ave_time(S_to_E): 125.976ms
+
+*** DEVICE (Bonaire) (2021-11-19 21:50:50)
+--- , Ave_time(S_to_E): 419.561ms
+
+*** DEVICE (Bonaire) (2021-11-19 21:56:14)
+--- , Ave_time(S_to_E): 126.542ms
+
+*** DEVICE (Bonaire) (2021-11-19 22: 4:50)
+--- , Ave_time(S_to_E): 126.144ms
+
+*** DEVICE (Bonaire) (2021-11-19 22: 5:53)
+--- , Ave_time(S_to_E): 128.514ms
+
+*** DEVICE (Bonaire) (2021-11-19 22: 9:50)
+--- , Ave_time(S_to_E): 159.658ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:29:38)
+--- , Ave_time(S_to_E): 127.875ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:30:28)
+--- , Ave_time(S_to_E): 131.019ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:33:15)
+--- , Ave_time(S_to_E): 159.122ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:42:32)
+--- , Ave_time(S_to_E): 42.395ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:44: 6)
+--- , Ave_time(S_to_E): 158.327ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:46:29)
+
+*** DEVICE (Bonaire) (2021-11-19 22:51:47)
+
+*** DEVICE (Bonaire) (2021-11-19 22:52:41)
+
+*** DEVICE (Bonaire) (2021-11-19 22:54: 5)
+--- , Ave_time(S_to_E): 86.344ms
+
+*** DEVICE (Bonaire) (2021-11-19 22:54:39)
+--- , Ave_time(S_to_E): 159.722ms
+
+*** DEVICE (Bonaire) (2021-11-20 10:38:44)
+--- , Ave_time(S_to_E): 160.701ms
+
+*** DEVICE (Bonaire) (2021-11-20 10:39:33)
+--- , Ave_time(S_to_E): 159.988ms
+
+*** DEVICE (Bonaire) (2021-11-20 11: 6:53)
+--- , Ave_time(S_to_E): 162.019ms
+
+*** DEVICE (Bonaire) (2021-11-20 11: 9:31)
+--- , Ave_time(S_to_E): 173.783ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:10:15)
+--- , Ave_time(S_to_E): 172.205ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:13: 5)
+--- , Ave_time(S_to_E): 174.591ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:32:45)
+--- , Ave_time(S_to_E): 131.665ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:34:15)
+--- , Ave_time(S_to_E): 159.200ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:46:11)
+--- , Ave_time(S_to_E): 23.031ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:55:47)
+--- , Ave_time(S_to_E): 19.115ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:57:57)
+--- , Ave_time(S_to_E): 25.151ms
+
+*** DEVICE (Bonaire) (2021-11-20 11:59: 9)
+--- , Ave_time(S_to_E): 146.600ms
+
+*** DEVICE (Bonaire) (2021-11-20 12: 1: 6)
+
+*** DEVICE (Bonaire) (2021-11-20 12:26:34)
+
+*** DEVICE (Bonaire) (2021-11-20 12:26:45)
+--- , Ave_time(S_to_E): 147.640ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:27:50)
+
+*** DEVICE (Bonaire) (2021-11-20 12:28:40)
+--- , Ave_time(S_to_E): 148.660ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:30:11)
+
+*** DEVICE (Bonaire) (2021-11-20 12:30:51)
+
+*** DEVICE (Bonaire) (2021-11-20 12:31:15)
+
+*** DEVICE (Bonaire) (2021-11-20 12:31:28)
+--- , Ave_time(S_to_E): 145.372ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:32:39)
+
+*** DEVICE (Bonaire) (2021-11-20 12:32:51)
+--- , Ave_time(S_to_E): 145.753ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:34:30)
+--- , Ave_time(S_to_E): 93.533ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:37:17)
+--- , Ave_time(S_to_E): 50.897ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:39:32)
+--- , Ave_time(S_to_E): 63.659ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:46:25)
+--- , Ave_time(S_to_E): 64.937ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:50:45)
+--- , Ave_time(S_to_E): 93.076ms
+
+*** DEVICE (Bonaire) (2021-11-20 12:57:38)
+--- , Ave_time(S_to_E): 79.797ms
+
+*** DEVICE (Bonaire) (2021-11-20 13: 0:29)
+--- , Ave_time(S_to_E): 77.767ms
+
+*** DEVICE (Bonaire) (2021-11-20 14: 5:51)
+--- , Ave_time(S_to_E): 75.520ms
+
+*** DEVICE (Bonaire) (2021-11-20 14:55:55)
+--- , Ave_time(S_to_E): 41.876ms
+
+*** DEVICE (Bonaire) (2021-11-20 15: 6:30)
+
+*** DEVICE (Bonaire) (2021-11-20 15: 8:14)
+
+*** DEVICE (Bonaire) (2021-11-20 15:25:16)
+--- , Ave_time(S_to_E): 0.832ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:39:40)
+--- , Ave_time(S_to_E): 0.832ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:40:12)
+--- , Ave_time(S_to_E): 0.833ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:43: 9)
+
+*** DEVICE (Bonaire) (2021-11-20 15:43:22)
+--- , Ave_time(S_to_E): 14.488ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:44:26)
+--- , Ave_time(S_to_E): 29.739ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:49:34)
+--- , Ave_time(S_to_E): 19.291ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:51:12)
+--- , Ave_time(S_to_E): 23.214ms
+
+*** DEVICE (Bonaire) (2021-11-20 15:52:50)
+--- , Ave_time(S_to_E): 76.597ms
+
+*** DEVICE (Bonaire) (2021-11-20 16:10:37)
+--- , Ave_time(S_to_E): 77.447ms
+
+*** DEVICE (Bonaire) (2021-11-20 16:17:48)
+--- , Ave_time(S_to_E): 61.829ms
+
+*** DEVICE (Bonaire) (2021-11-21 11: 4:56)
+--- , Ave_time(S_to_E): 60.596ms
+
+*** DEVICE (Bonaire) (2021-11-21 11:12: 2)
+--- , Ave_time(S_to_E): 60.667ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:17:13)
+--- , Ave_time(S_to_E): 42.104ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:18:52)
+--- , Ave_time(S_to_E): 40.303ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:21:25)
+--- , Ave_time(S_to_E): 44.745ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:23:13)
+
+*** DEVICE (Bonaire) (2021-11-21 12:23:48)
+--- , Ave_time(S_to_E): 46.206ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:25: 8)
+--- , Ave_time(S_to_E): 47.355ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:27:16)
+--- , Ave_time(S_to_E): 42.343ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:28:55)
+--- , Ave_time(S_to_E): 25.735ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:30:26)
+--- , Ave_time(S_to_E): 37.357ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:31: 1)
+--- , Ave_time(S_to_E): 43.001ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:32:16)
+--- , Ave_time(S_to_E): 47.784ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:32:55)
+--- , Ave_time(S_to_E): 24.862ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:33:25)
+--- , Ave_time(S_to_E): 26.105ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:35:21)
+--- , Ave_time(S_to_E): 25.176ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:35:44)
+--- , Ave_time(S_to_E): 93.656ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:37: 2)
+--- , Ave_time(S_to_E): 94.487ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:37:18)
+--- , Ave_time(S_to_E): 35.266ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:42:34)
+--- , Ave_time(S_to_E): 79.499ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:43:21)
+--- , Ave_time(S_to_E): 60.650ms
+
+*** DEVICE (Bonaire) (2021-11-21 12:45:56)
+
+*** DEVICE (Bonaire) (2021-11-21 12:48:15)
+
+*** DEVICE (Bonaire) (2021-11-21 12:48:25)
+--- , Ave_time(S_to_E): 160.965ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:17:23)
+--- , Ave_time(S_to_E): 72.866ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:19:58)
+--- , Ave_time(S_to_E): 72.648ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:25:34)
+--- , Ave_time(S_to_E): 69.772ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:26:21)
+--- , Ave_time(S_to_E): 82.778ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:27:20)
+--- , Ave_time(S_to_E): 71.800ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:29:30)
+--- , Ave_time(S_to_E): 90.626ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:32:28)
+--- , Ave_time(S_to_E): 60.461ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:35:16)
+--- , Ave_time(S_to_E): 70.437ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:36:47)
+--- , Ave_time(S_to_E): 26.287ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:40:16)
+--- , Ave_time(S_to_E): 26.516ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:40:29)
+--- , Ave_time(S_to_E): 64.725ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:42:12)
+--- , Ave_time(S_to_E): 18.113ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:44:46)
+--- , Ave_time(S_to_E): 66.754ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:45:18)
+--- , Ave_time(S_to_E): 66.534ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:49:30)
+--- , Ave_time(S_to_E): 44.087ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:50: 8)
+--- , Ave_time(S_to_E): 41.394ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:52:51)
+--- , Ave_time(S_to_E): 45.218ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:54:56)
+--- , Ave_time(S_to_E): 17.752ms
+
+*** DEVICE (Bonaire) (2021-11-21 13:59:18)
+--- , Ave_time(S_to_E): 29.466ms
+
+*** DEVICE (Bonaire) (2021-11-21 14: 3:38)
+--- , Ave_time(S_to_E): 41.696ms
+
+*** DEVICE (Bonaire) (2021-11-21 14: 7:11)
+--- , Ave_time(S_to_E): 75.619ms
+
+*** DEVICE (Bonaire) (2021-11-21 14: 8:17)
+--- , Ave_time(S_to_E): 75.134ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:10:14)
+--- , Ave_time(S_to_E): 41.581ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:13:59)
+--- , Ave_time(S_to_E): 18.096ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:15:23)
+--- , Ave_time(S_to_E): 35.088ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:20:35)
+
+*** DEVICE (Bonaire) (2021-11-21 14:21:25)
+--- , Ave_time(S_to_E): 3.079ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:22:59)
+--- , Ave_time(S_to_E): 3.056ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:23: 8)
+--- , Ave_time(S_to_E): 3.069ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:23:52)
+--- , Ave_time(S_to_E): 16.357ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:28:35)
+--- , Ave_time(S_to_E): 54.148ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:28:55)
+--- , Ave_time(S_to_E): 55.679ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:30:10)
+--- , Ave_time(S_to_E): 56.107ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:30:37)
+--- , Ave_time(S_to_E): 55.254ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:31:50)
+--- , Ave_time(S_to_E): 54.780ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:33:35)
+--- , Ave_time(S_to_E): 47.706ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:34:48)
+--- , Ave_time(S_to_E): 41.384ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:35:43)
+--- , Ave_time(S_to_E): 47.894ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:39:52)
+--- , Ave_time(S_to_E): 62.196ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:41: 8)
+--- , Ave_time(S_to_E): 47.754ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:41:33)
+--- , Ave_time(S_to_E): 41.349ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:47:34)
+--- , Ave_time(S_to_E): 45.632ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:47:56)
+--- , Ave_time(S_to_E): 48.242ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:48:49)
+--- , Ave_time(S_to_E): 47.695ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:49: 9)
+--- , Ave_time(S_to_E): 41.421ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:51:30)
+--- , Ave_time(S_to_E): 45.820ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:52:16)
+--- , Ave_time(S_to_E): 17.820ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:57:15)
+--- , Ave_time(S_to_E): 17.823ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:57:43)
+--- , Ave_time(S_to_E): 45.551ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:58:34)
+--- , Ave_time(S_to_E): 41.391ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:59:20)
+--- , Ave_time(S_to_E): 42.303ms
+
+*** DEVICE (Bonaire) (2021-11-21 14:59:37)
+--- , Ave_time(S_to_E): 48.280ms
+
+*** DEVICE (Bonaire) (2021-11-21 15: 7:42)
+--- , Ave_time(S_to_E): 62.272ms
+
+*** DEVICE (Bonaire) (2021-11-21 15: 8:33)
+--- , Ave_time(S_to_E): 62.196ms
+
+*** DEVICE (Bonaire) (2021-11-21 15: 9:42)
+--- , Ave_time(S_to_E): 63.815ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:11:19)
+--- , Ave_time(S_to_E): 63.892ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:13:20)
+--- , Ave_time(S_to_E): 62.542ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:13:45)
+--- , Ave_time(S_to_E): 62.229ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:14:25)
+--- , Ave_time(S_to_E): 61.928ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:20:46)
+--- , Ave_time(S_to_E): 73.308ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:22:28)
+--- , Ave_time(S_to_E): 73.683ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:26:29)
+--- , Ave_time(S_to_E): 61.801ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:26:55)
+--- , Ave_time(S_to_E): 62.518ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:29:37)
+--- , Ave_time(S_to_E): 41.471ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:30:12)
+--- , Ave_time(S_to_E): 41.339ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:31:52)
+--- , Ave_time(S_to_E): 41.349ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:34:25)
+--- , Ave_time(S_to_E): 42.349ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:35:52)
+--- , Ave_time(S_to_E): 43.002ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:37:35)
+--- , Ave_time(S_to_E): 42.178ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:43:10)
+--- , Ave_time(S_to_E): 62.203ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:43:29)
+--- , Ave_time(S_to_E): 62.187ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:54: 1)
+--- , Ave_time(S_to_E): 42.319ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:54:21)
+--- , Ave_time(S_to_E): 62.413ms
+
+*** DEVICE (Bonaire) (2021-11-21 15:54:38)
+--- , Ave_time(S_to_E): 62.184ms
+
+*** DEVICE (Bonaire) (2021-11-21 16:17: 2)
+--- , Ave_time(S_to_E): 91.874ms
+
+*** DEVICE (Bonaire) (2021-11-21 16:18:38)
+--- , Ave_time(S_to_E): 91.295ms
+
+*** DEVICE (Bonaire) (2021-11-21 16:19:31)
+--- , Ave_time(S_to_E): 61.334ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:46:39)
+
+*** DEVICE (Bonaire) (2021-11-21 17:46:58)
+
+*** DEVICE (Bonaire) (2021-11-21 17:47:15)
+
+*** DEVICE (Bonaire) (2021-11-21 17:47:54)
+--- , Ave_time(S_to_E): 65.463ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:48:18)
+--- , Ave_time(S_to_E): 65.457ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:49:32)
+--- , Ave_time(S_to_E): 94.056ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:51:30)
+--- , Ave_time(S_to_E): 365.505ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:52:39)
+--- , Ave_time(S_to_E): 256.761ms
+
+*** DEVICE (Bonaire) (2021-11-21 17:54:37)
+--- , Ave_time(S_to_E): 92.651ms
+
+*** DEVICE (Bonaire) (2021-11-21 18: 5:28)
+--- , Ave_time(S_to_E): 148.809ms
+
+*** DEVICE (Bonaire) (2021-11-21 18: 6: 0)
+--- , Ave_time(S_to_E): 65.315ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:16:31)
+--- , Ave_time(S_to_E): 35.129ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:18:18)
+--- , Ave_time(S_to_E): 76.749ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:19:28)
+--- , Ave_time(S_to_E): 50.904ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:20:17)
+--- , Ave_time(S_to_E): 34.133ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:20:51)
+--- , Ave_time(S_to_E): 33.520ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:21:37)
+--- , Ave_time(S_to_E): 35.729ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:22:37)
+--- , Ave_time(S_to_E): 49.969ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:23:11)
+--- , Ave_time(S_to_E): 198.832ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:23:50)
+--- , Ave_time(S_to_E): 139.804ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:31: 5)
+--- , Ave_time(S_to_E): 3.254ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:32:25)
+--- , Ave_time(S_to_E): 84.438ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:33: 1)
+--- , Ave_time(S_to_E): 46.115ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:33:45)
+--- , Ave_time(S_to_E): 43.585ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:35:39)
+--- , Ave_time(S_to_E): 65.946ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:36:16)
+--- , Ave_time(S_to_E): 103.267ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:37: 2)
+--- , Ave_time(S_to_E): 44.516ms
+
+*** DEVICE (Bonaire) (2021-11-21 18:42:40)
+--- , Ave_time(S_to_E): 45.501ms
+
+*** DEVICE (Bonaire) (2021-11-21 19: 3:28)
+--- , Ave_time(S_to_E): 65.391ms
+
+*** DEVICE (Bonaire) (2021-11-21 19: 4:25)
+--- , Ave_time(S_to_E): 250.085ms
+
+*** DEVICE (Bonaire) (2021-11-21 19: 4:56)
+--- , Ave_time(S_to_E): 175.645ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:10:24)
+--- , Ave_time(S_to_E): 176.319ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:11: 3)
+--- , Ave_time(S_to_E): 43.929ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:12:10)
+--- , Ave_time(S_to_E): 63.827ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:13:11)
+--- , Ave_time(S_to_E): 43.396ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:33:18)
+--- , Ave_time(S_to_E): 43.043ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:34:31)
+--- , Ave_time(S_to_E): 17.055ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:34:54)
+--- , Ave_time(S_to_E): 12.699ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:35:16)
+--- , Ave_time(S_to_E): 20.284ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:35:55)
+--- , Ave_time(S_to_E): 64.440ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:36:23)
+--- , Ave_time(S_to_E): 63.907ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:38: 6)
+--- , Ave_time(S_to_E): 42.990ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:46: 2)
+--- , Ave_time(S_to_E): 42.993ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:46:27)
+--- , Ave_time(S_to_E): 64.224ms
+
+*** DEVICE (Bonaire) (2021-11-21 19:46:56)
+--- , Ave_time(S_to_E): 42.825ms
