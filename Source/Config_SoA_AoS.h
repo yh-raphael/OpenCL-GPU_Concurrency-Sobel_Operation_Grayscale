@@ -24,6 +24,7 @@
 #define		Kernel_Naive		8	// Not optimized version.
 #define		Kernel_Advanced		9	// Vector type + Loop Unrolling optimization.
 #define		Kernel_Optimized	10	// Vector type + Loop Unrolling + Shared Memory optimization.
+#define		Three_Queues		11	// Sol2
 
 
 // Input file로 사용할 이미지 file 이름.
@@ -40,7 +41,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////
 #define		INPUT_IMAGE						2
-#define		IMAGE_OPERATION				Kernel_Optimized
+#define		IMAGE_OPERATION				Three_Queues
 /////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +105,11 @@
 #elif KERNEL_SELECTION == 10
 #define OPENCL_C_PROG_FILE_NAME "Source/Kernel/Kernel-Optimized.cl"
 #define KERNEL_NAME "Kernel_Optimized"
+
+// [HW3] Concurrency.
+#elif KERNEL_SELECTION == 11
+#define OPENCL_C_PROG_FILE_NAME "Source/Kernel/Three_Queues.cl"
+#define KERNEL_NAME "Three_Queues"
 #endif
 
 #define		STAT_FILE_NAME				"Data/stat_file_KO.txt"
@@ -117,5 +123,9 @@
 #define MAKE_STAT_ITEM_LIST_CBO(string, gws, lws) sprintf((string), "IMAGE = %d(%s), GF_SIZE = %d, N_EXE = %d,\n " \
                     "    KER = %d, GWS = (%d, %d), LWS = (%d, %d)", INPUT_IMAGE, INPUT_FILE_NAME, GAUSSIAN_FILTER_SIZE, \
 					N_EXECUTIONS, KERNEL_SELECTION, (gws)[0], (gws)[1], (lws)[0], (lws)[1]);
+
+// [HW3] Concurrency.
+#define		MAXIMUM_COMMAND_QUEUES		32
+
 
 #endif

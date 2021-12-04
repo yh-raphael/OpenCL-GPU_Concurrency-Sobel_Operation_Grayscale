@@ -25,6 +25,9 @@
 
 #include "Util/my_OpenCL_util_2_2.h"
 
+// [HW3]
+#include "Config_SoA_AoS.h"
+
 // Array of Structure를 위한 자료구조.
 typedef struct _Pixel_Channels {
     BYTE R, G, B, A;
@@ -82,6 +85,20 @@ typedef struct _Context {
 
     cl_uint work_dim;
     size_t global_work_offset[3], global_work_size[3], local_work_size[3];
+
+    // [HW3] Concurrency.
+    cl_command_queue _cmd_queue_[MAXIMUM_COMMAND_QUEUES];
+    cl_kernel _kernel_[MAXIMUM_COMMAND_QUEUES];
+
+    cl_mem BO_input_dev, BO_midput_dev, BO_output_dev, BO_filter_x_dev, BO_filter_y_dev;
+    cl_mem BO_input_pinned, BO_midput_pinned, BO_output_pinned, BO_filter_x_pinned, BO_filter_y_pinned;
+//    Pixel_Channels *data_input, *data_midput, *data_output;
+    int *data_filter_x, *data_filter_y;
+
+    int n_elements;
+    size_t buffer_size_in_bytes;
+
+
 } Context;
 
 extern Context context;
@@ -147,5 +164,8 @@ int run_OpenCL_kernel_SoA_SO(void);
 int run_OpenCL_kernel_AoS_SO(void);
 
 void clean_up_system(void);
+
+// [HW3]
+void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_segments);
 
 #endif // __CONTEXT_SOA_AOS__

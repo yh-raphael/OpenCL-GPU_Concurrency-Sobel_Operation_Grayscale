@@ -1010,3 +1010,6 @@
 
 *** DEVICE (Bonaire) (2021-11-21 19:46:56)
 --- , Ave_time(S_to_E): 42.825ms
+
+*** DEVICE (Bonaire) (2021-12- 2 19:34:19)
+--- , Ave_time(S_to_E): 43.609ms
