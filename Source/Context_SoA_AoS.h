@@ -98,6 +98,10 @@ typedef struct _Context {
     int n_elements;
     size_t buffer_size_in_bytes;
 
+    cl_event event_write_A[MAXIMUM_COMMAND_QUEUES];
+    cl_event event_write_B[MAXIMUM_COMMAND_QUEUES];
+    cl_event event_compute[MAXIMUM_COMMAND_QUEUES];
+    cl_event event_read_C[MAXIMUM_COMMAND_QUEUES];
 
 } Context;
 

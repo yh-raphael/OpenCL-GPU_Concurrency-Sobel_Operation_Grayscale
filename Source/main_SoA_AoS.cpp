@@ -339,7 +339,7 @@ int main(int argc, char* argv[]) {
 
         int flag = initialize_OpenCL_AoS_SO();  // OK.
         if (flag) goto finish7;
-        flag = set_local_work_size_and_kernel_arguments_AoS_SO_KO_local();
+        flag = set_local_work_size_and_kernel_arguments_AoS_SO_KO_local();      // OK.
         if (flag) goto finish7;
         flag = run_OpenCL_kernel_AoS_SO();
         if (flag) goto finish7;
@@ -602,29 +602,8 @@ int main(int argc, char* argv[]) {
         if (context.event_for_timing) clReleaseEvent(context.event_for_timing);
 
 
-        /*
-                CHECK_TIME_START(_start, _freq);
-                // Move the input data from the host memory to the GPU device memory.
-                errcode_ret = clEnqueueWriteBuffer(context.cmd_queue, context.BO_input, CL_FALSE, 0,
-                    sizeof(Pixel_Channels) * context.image_height * context.image_width, context.AoS_image_input, 0, NULL, NULL);
-                if (CHECK_ERROR_CODE(errcode_ret)) return 1;
 
 
-                errcode_ret = clEnqueueWriteBuffer(context.cmd_queue, context.BO_filter_x, CL_FALSE, 0,
-                    sizeof(int) * 5 * 5, context.sobel_filter_x.weights, 0, NULL, NULL);
-                if (CHECK_ERROR_CODE(errcode_ret)) return 1;
-
-                errcode_ret = clEnqueueWriteBuffer(context.cmd_queue, context.BO_filter_y, CL_FALSE, 0,
-                    sizeof(int) * 5 * 5, context.sobel_filter_y.weights, 0, NULL, NULL);
-                if (CHECK_ERROR_CODE(errcode_ret)) return 1;*/
-                /* Wait until all data transfers finish. */
-        /*        clFinish(context.cmd_queue);
-                CHECK_TIME_END(_start, _end, _freq, compute_time);
-                if (CHECK_ERROR_CODE(errcode_ret)) return 1;
-
-                fprintf(stdout, "      * Time by host clock = %.3fms\n\n", compute_time);
-                return 0;
-        */
 
         printf("hellooooooooooooooooooo!!!\n");
 
@@ -637,7 +616,139 @@ int main(int argc, char* argv[]) {
 }
 
 void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_segments) {
+    // 핵심 변환부.
+    context.global_work_size[1] = (context.n_elements / n_segments) / context.image_width;
+    int segment_in_bytes = context.buffer_size_in_bytes / n_segments;
+    int segment_in_index = context.n_elements / n_segments;
 
+
+
+
+
+    /* Set the kenel arguments for kernels. */
+    unsigned int offset_in_index;
+    for (int j = 0; j < n_segments; j++) {
+        errcode_ret = clSetKernelArg(context._kernel_[j], 0, sizeof(cl_mem), &context.BO_input);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 1, sizeof(cl_mem), &context.BO_output);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 2, sizeof(int), &context.image_width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 3, sizeof(int), &context.image_height);
+
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 4, sizeof(cl_mem), &context.BO_filter_x);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 5, sizeof(cl_mem), &context.BO_filter_y);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 6, sizeof(int), &context.sobel_filter_x.width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 7, sizeof(int), &context.sobel_filter_y.width);
+
+        int twice_half_filter_width = 2 * (context.sobel_filter_x.width / 2);
+        size_t local_mem_size = sizeof(cl_uchar4)
+            * (context.local_work_size[0] + twice_half_filter_width)
+            * (context.local_work_size[1] + twice_half_filter_width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 8, local_mem_size, NULL);
+        fprintf(stdout, "^^^ Necessary local memory = %d bytes (%d, %d, %d) ^^^\n\n", local_mem_size,
+            sizeof(cl_uchar4), context.local_work_size[0] + twice_half_filter_width,
+            context.local_work_size[1] + twice_half_filter_width);
+
+        // [HW3] Concurrency.
+        offset_in_index = j * segment_in_index;
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);;
+
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+    }
+
+    printf_KernelWorkGroupInfo(context._kernel_[0], context.device_id);
+
+
+
+    /* Make sure that all previous commands have finished. */
+    for (int j = 0; j < 3; j++) {
+        clFinish(context._cmd_queue_[j]);
+    }
+
+
+
+    CHECK_TIME_START(_start, _freq);
+    for (int j = 0; j < n_segments; j++) {
+        // Move the input data from the host memory to the GPU device memory.
+        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
+            segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_filter_x_dev, CL_FALSE, 0,
+            sizeof(int) * 5 * 5, context.sobel_filter_x.weights, 0, NULL, NULL);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_filter_y_dev, CL_FALSE, 0,
+            sizeof(int) * 5 * 5, context.sobel_filter_y.weights, 0, NULL, &context.event_write_B[j]);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        clFlush(context._cmd_queue_[0]);
+
+        /* Execute the kernel on the device. */
+ /*       errcode_ret = clEnqueueNDRangeKernel(C.cmd_queue[1], C.kernel[j], 1, NULL,
+            C.global_work_size, C.local_work_size, 1, &C.event_write_B[j], &C.event_compute[j]);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+        clFlush(C.cmd_queue[1]);
+*/
+        /* Read back the device buffer to the host array. */
+ /*       errcode_ret = clEnqueueReadBuffer(C.cmd_queue[2], C.buffer_C_dev, CL_FALSE, j * segment_in_bytes,
+            segment_in_bytes, (void*)&C.data_C[j * segment_in_index], 1, &C.event_compute[j], NULL);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+        clFlush(C.cmd_queue[2]);
+*/
+    }
+    for (int j = 0; j < 3; j++) {
+        clFinish(context._cmd_queue_[j]);
+    }
+    CHECK_TIME_END(_start, _end, _freq, compute_time);
+
+
+
+
+
+
+/*
+    fprintf(stdout, "    [Kernel Execution] \n");
+
+    fp_stat = util_open_stat_file_append(STAT_FILE_NAME);
+    util_stamp_stat_file_device_name_and_time(fp_stat, context.device_id);
+    util_reset_event_time();
+
+    CHECK_TIME_START(_start, _freq);    */
+    /* Execute the kernel on the device. */
+/*    for (int i = 0; i < N_EXECUTIONS; i++) {
+        //printf("gws[0]: %d, gws[1]: %d lws: %d \n", context.global_work_size[0], context.global_work_size[1], context.local_work_size[0]);
+        errcode_ret = clEnqueueNDRangeKernel(context.cmd_queue, context.kernel, 2, NULL,
+            context.global_work_size, context.local_work_size, 0, NULL, &context.event_for_timing);
+        if (CHECK_ERROR_CODE(errcode_ret)) return 1;
+        clWaitForEvents(1, &context.event_for_timing);
+        if (CHECK_ERROR_CODE(errcode_ret)) return 1;
+        util_accumulate_event_times_1_2(context.event_for_timing);
+    }
+    CHECK_TIME_END(_start, _end, _freq, compute_time);
+
+    fprintf(stdout, "      * Time by host clock = %.3fms\n\n", compute_time);
+    util_print_accumulated_device_time_1_2(N_EXECUTIONS);
+    //   MAKE_STAT_ITEM_LIST_CBO(tmp_string, context_CL.global_work_size, context_CL.local_work_size);
+    util_stamp_stat_file_ave_device_time_START_to_END_1_2_string(fp_stat, tmp_string);
+    util_close_stat_file_append(fp_stat);
+
+    fprintf(stdout, "    [Data Transfer] \n");
+*/
+    /* Read back the device buffer to the host array. */
+ //   CHECK_TIME_START(_start, _freq);
+    /*   errcode_ret = clEnqueueReadBuffer(context.cmd_queue, context.BO_midput, CL_TRUE, 0,
+           sizeof(Pixel_Channels) * context.image_height * context.image_width, context.AoS_image_midput, 0, NULL,
+           &context.event_for_timing);*/
+/*    errcode_ret = clEnqueueReadBuffer(context.cmd_queue, context.BO_output, CL_TRUE, 0,
+        sizeof(Pixel_Channels) * context.image_height * context.image_width, context.AoS_image_output, 0, NULL,
+        &context.event_for_timing);
+    CHECK_TIME_END(_start, _end, _freq, compute_time);
+    if (CHECK_ERROR_CODE(errcode_ret)) return 1;
+
+    fprintf(stdout, "      * Time by host clock = %.3fms\n\n", compute_time);
+    print_device_time(context.event_for_timing);
+
+    return 0;
+*/
 }
 
 void clean_up_system(void) {
