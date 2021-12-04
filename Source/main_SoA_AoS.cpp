@@ -377,7 +377,9 @@ int main(int argc, char* argv[]) {
 
         context.n_elements = context.image_width * context.image_height;
         context.buffer_size_in_bytes = sizeof(Pixel_Channels) * context.n_elements;
-        context.AoS_image_input = context.AoS_image_midput = context.AoS_image_output = NULL;
+//        context.AoS_image_input = context.AoS_image_midput = context.AoS_image_output = NULL;
+        context.AoS_image_input = context.AoS_image_output = NULL;
+
 
 //        C.n_kernel_loop_iterations = N_KERNEL_LOOP_ITERATIONS;
 //        C.n_kernel_call_iterations = N_KERNEL_CALL_ITERATIONS;
@@ -480,9 +482,9 @@ int main(int argc, char* argv[]) {
         context.AoS_image_output = (Pixel_Channels*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_output_pinned, CL_TRUE,
             CL_MAP_READ, 0, sizeof(Pixel_Channels) * context.image_height * context.image_width, 0, NULL, NULL, &errcode_ret);
 
-        context.data_filter_x = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_input_pinned, CL_TRUE,
+        context.data_filter_x = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_x_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
-        context.data_filter_y = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_midput_pinned, CL_TRUE,
+        context.data_filter_y = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_y_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
         fprintf(stdout, "\n^^^ Three standard pointers to host pinned memory are mapped. ^^^\n");
 
@@ -530,7 +532,7 @@ int main(int argc, char* argv[]) {
 
 
 
-
+        // 핵심 실행부분!
         fprintf(stdout, "^^^ Copy compute type: THREE QUEUES (EVENTS) ^^^\n\n");
         for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
             // j : n_segments
@@ -570,12 +572,12 @@ int main(int argc, char* argv[]) {
 //        free(context.solution);
         if (context.prog_src.string) free(context.prog_src.string);
 
-        //        for (int i = 0; i < MAXIMUM_COMMAND_QUEUES; i++) {
-        //            clReleaseEvent(context.event_write_A[i]);
-        //            clReleaseEvent(context.event_write_B[i]);
-        //            clReleaseEvent(context.event_compute[i]);
-        //            clReleaseEvent(context.event_read_C[i]);
-        //        }
+        for (int i = 0; i < MAXIMUM_COMMAND_QUEUES; i++) {
+            clReleaseEvent(context.event_write_A[i]);
+            clReleaseEvent(context.event_write_B[i]);
+            clReleaseEvent(context.event_compute[i]);
+            clReleaseEvent(context.event_read_C[i]);
+        }
 
         if (context.BO_input_dev) clReleaseMemObject(context.BO_input_dev);
 //        if (context.BO_midput_dev) clReleaseMemObject(context.BO_midput_dev);    // 추가.
@@ -599,8 +601,7 @@ int main(int argc, char* argv[]) {
         if (context.device_id) clReleaseDevice(context.device_id);
         if (context.context) clReleaseContext(context.context);
 
-        if (context.event_for_timing) clReleaseEvent(context.event_for_timing);
-
+ //       if (context.event_for_timing) clReleaseEvent(context.event_for_timing);
 
 
 
@@ -643,9 +644,9 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
             * (context.local_work_size[0] + twice_half_filter_width)
             * (context.local_work_size[1] + twice_half_filter_width);
         errcode_ret |= clSetKernelArg(context._kernel_[j], 8, local_mem_size, NULL);
-        fprintf(stdout, "^^^ Necessary local memory = %d bytes (%d, %d, %d) ^^^\n\n", local_mem_size,
-            sizeof(cl_uchar4), context.local_work_size[0] + twice_half_filter_width,
-            context.local_work_size[1] + twice_half_filter_width);
+//        fprintf(stdout, "^^^ Necessary local memory = %d bytes (%d, %d, %d) ^^^\n\n", local_mem_size,
+//            sizeof(cl_uchar4), context.local_work_size[0] + twice_half_filter_width,
+//            context.local_work_size[1] + twice_half_filter_width);
 
         // [HW3] Concurrency.
         offset_in_index = j * segment_in_index;
@@ -654,7 +655,7 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
     }
 
-    printf_KernelWorkGroupInfo(context._kernel_[0], context.device_id);
+//    printf_KernelWorkGroupInfo(context._kernel_[0], context.device_id);
 
 
 
@@ -700,6 +701,7 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
         clFinish(context._cmd_queue_[j]);
     }
     CHECK_TIME_END(_start, _end, _freq, compute_time);
+    fprintf(stdout, "      * Time by host clock = %.3fms\n", compute_time);
 
 
     printf("bye~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
