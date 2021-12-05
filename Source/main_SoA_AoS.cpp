@@ -547,25 +547,34 @@ int main(int argc, char* argv[]) {
 
 
 
-
-
         // 핵심 실행부분!
-        fprintf(stdout, "^^^ Copy compute type: THREE QUEUES (EVENTS) ^^^\n\n");
-        for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
-            // j : n_segments
-            fprintf(stdout, "\n^^^ Use three queues and events for %d-segmented kernel execution.\n", j);
-
-//            int flag = initialize_OpenCL_AoS_SO();
-//            if (flag) goto finish8;
-            use_multiple_segments_and_three_command_queues_with_events_breadth(j);
-            //check_correctness_on_host();
+        switch (context.copy_compute_type) {
+        case COPY_COMPUTE_TYPE_THREE_QUEUES_WITH_EVENTS:
+            fprintf(stdout, "^^^ Copy compute type: THREE QUEUES (EVENTS) ^^^\n\n");
+            for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
+                // j : n_segments
+                fprintf(stdout, "\n^^^ Use three queues and events for %d-segmented kernel execution.\n", j);
+                use_multiple_segments_and_three_command_queues_with_events_breadth(j);
+                //check_correctness_on_host();
+            }
+            break;
+        case COPY_COMPUTE_TYPE_MULTIPLE_QUEUES_1:
+            fprintf(stdout, "^^^ Copy compute type: MULTIPLE QUEUES ^^^\n\n");
+            for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
+                // j : n_segments
+                fprintf(stdout, "\n^^^ Use multiple queues for %d-segmented kernel execution.\n", j);
+                use_multiple_segments_and_multiple_command_queues_depth_1(j);
+                //check_correctness_on_host();
+            }
+            break;
         }
-
 
 
 
         convert_AoS_output_to_output_image_data();
         write_output_image_to_file32(OUTPUT_FILE_NAME);
+
+
 
         /* Unmap the mapped regions of the three buffer objects. */
         errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_input_pinned, context.AoS_image_input,
@@ -617,14 +626,11 @@ int main(int argc, char* argv[]) {
         }
         if (context.device_id) clReleaseDevice(context.device_id);
         if (context.context) clReleaseContext(context.context);
-
  //       if (context.event_for_timing) clReleaseEvent(context.event_for_timing);
 
 
 
-
         printf("hellooooooooooooooooooo!!!\n");
-
     }
     else {
         fprintf(stdout, "^^^ Nothing has been done!\n");
@@ -633,13 +639,15 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// 2. use_multiple_segments_and_three_command_queues_with_events_breadth //////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_segments) {
     // 핵심 변환부.
-    context.global_work_size[1] = ( (context.n_elements / n_segments) / context.image_width ) + 2;      // Boundary handling!
     int segment_in_bytes = context.buffer_size_in_bytes / n_segments;
     int segment_in_index = context.n_elements / n_segments;
 
-
+//    printf("Segment height: %u \n", context.global_work_size[1]);
 
 
 
@@ -686,16 +694,28 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
     CHECK_TIME_START(_start, _freq);
     for (int j = 0; j < n_segments; j++) {
         // Move the input data from the host memory to the GPU device memory.
-        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
-            segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);  // Boundary handling!
+        if (j != n_segments - 1) {
+            context.global_work_size[1] = ((context.n_elements / n_segments) / context.image_width) + 2;      // Boundary handling!
+ //           fprintf(stdout, "   - GLOBAL WORK SIZE [0] = %llu\n", (unsigned long long) context.global_work_size[0]);
+ //           fprintf(stdout, "   - GLOBAL WORK SIZE [1] = %llu\n\n", (unsigned long long) context.global_work_size[1]);
+            errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes + 2 * sizeof(Pixel_Channels) * context.image_width, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);  // Boundary handling!
+        }
+        else if (j == n_segments - 1) {
+            context.global_work_size[1] = ((context.n_elements / n_segments) / context.image_width);      // Boundary handling!
+ //           fprintf(stdout, "   - GLOBAL WORK SIZE [0] = %llu\n", (unsigned long long) context.global_work_size[0]);
+ //           fprintf(stdout, "   - GLOBAL WORK SIZE [1] = %llu\n\n", (unsigned long long) context.global_work_size[1]);
+            errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);  // Boundary handling!
+        }
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_filter_x_dev, CL_FALSE, 0,
-            sizeof(int) * 5 * 5, context.sobel_filter_x.weights, 0, NULL, NULL);
+            sizeof(int) * 5 * 5, context.data_filter_x, 0, NULL, NULL);
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_filter_y_dev, CL_FALSE, 0,
-            sizeof(int) * 5 * 5, context.sobel_filter_y.weights, 0, NULL, &context.event_write_B[j]);
+            sizeof(int) * 5 * 5, context.data_filter_y, 0, NULL, &context.event_write_B[j]);
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         clFlush(context._cmd_queue_[0]);
@@ -708,13 +728,136 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
         clFlush(context._cmd_queue_[1]);
 
         /* Read back the device buffer to the host array. */
-        errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[2], context.BO_output_dev, CL_FALSE, j * segment_in_bytes,
-            segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index], 1, &context.event_compute[j], NULL);
+//        if (j == 0) {
+            errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[2], context.BO_output_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index], 1, &context.event_compute[j], NULL);
+//        }
+//        if (j == 1) {
+//            errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[2], context.BO_output_dev, CL_FALSE, j * segment_in_bytes + 2 * sizeof(Pixel_Channels) * context.image_width,
+//                segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index + 2 * sizeof(Pixel_Channels) * context.image_width], 1, &context.event_compute[j], NULL);
+//        }
+//        else {
+//            errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[2], context.BO_output_dev, CL_FALSE, j * segment_in_bytes,
+//                segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index], 1, &context.event_compute[j], NULL);
+//        }
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         clFlush(context._cmd_queue_[2]);
     }
     for (int j = 0; j < 3; j++) {
+        clFinish(context._cmd_queue_[j]);
+    }
+    CHECK_TIME_END(_start, _end, _freq, compute_time);
+    fprintf(stdout, "      * Time by host clock = %.3fms\n", compute_time);
+
+
+    printf("bye~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// 3-1. void use_multiple_segments_and_multiple_command_queues_depth_1(int n_cmd_queues) /////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void use_multiple_segments_and_multiple_command_queues_depth_1(int n_cmd_queues) {
+    // 핵심 변환부.
+    context.global_work_size[1] = ((context.n_elements / n_cmd_queues) / context.image_width) + 2;      // TODO: Boundary handling 해야함!
+    int segment_in_bytes = context.buffer_size_in_bytes / n_cmd_queues;
+    int segment_in_index = context.n_elements / n_cmd_queues;
+
+//    printf("Segment height: %u \n", context.global_work_size[1]);
+
+
+
+    /* Set the kenel arguments for kernels. */
+    unsigned int offset_in_index;
+    for (int j = 0; j < n_cmd_queues; j++) {
+        errcode_ret = clSetKernelArg(context._kernel_[j], 0, sizeof(cl_mem), &context.BO_input_dev);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 1, sizeof(cl_mem), &context.BO_output_dev);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 2, sizeof(int), &context.image_width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 3, sizeof(int), &context.image_height);
+
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 4, sizeof(cl_mem), &context.BO_filter_x_dev);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 5, sizeof(cl_mem), &context.BO_filter_y_dev);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 6, sizeof(int), &context.sobel_filter_x.width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 7, sizeof(int), &context.sobel_filter_y.width);
+
+        int twice_half_filter_width = 2 * (context.sobel_filter_x.width / 2);
+        size_t local_mem_size = sizeof(cl_uchar4)
+            * (context.local_work_size[0] + twice_half_filter_width)
+            * (context.local_work_size[1] + twice_half_filter_width);
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 8, local_mem_size, NULL);
+        //        fprintf(stdout, "^^^ Necessary local memory = %d bytes (%d, %d, %d) ^^^\n\n", local_mem_size,
+        //            sizeof(cl_uchar4), context.local_work_size[0] + twice_half_filter_width,
+        //            context.local_work_size[1] + twice_half_filter_width);
+
+                // [HW3] Concurrency.
+        offset_in_index = j * segment_in_index;
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);;
+
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+    }
+
+    //    printf_KernelWorkGroupInfo(context._kernel_[0], context.device_id);
+
+
+
+    /* Make sure that all previous commands have finished. */
+    for (int j = 0; j < n_cmd_queues; j++) {
+        clFinish(context._cmd_queue_[j]);
+    }
+
+
+    //+ (int)((2) * sizeof(Pixel_Channels) * context.image_width)
+    CHECK_TIME_START(_start, _freq);
+    for (int j = 0; j < n_cmd_queues; j++) {
+        // Move the input data from the host memory to the GPU device memory.
+        if (j == 0) {
+            errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[j], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);  // Boundary handling!
+        }
+        else {
+            errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[j], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 1, &context.event_write_B[j - 1], NULL);  // Boundary handling!
+        }
+
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[j], context.BO_filter_x_dev, CL_FALSE, 0,
+            sizeof(int) * 5 * 5, context.data_filter_x, 0, NULL, &context.event_write_A[j]);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[j], context.BO_filter_y_dev, CL_FALSE, 0,
+            sizeof(int) * 5 * 5, context.data_filter_y, 1, &context.event_write_A[j], &context.event_write_B[j]);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        clFlush(context._cmd_queue_[0]);
+
+        /* Execute the kernel on the device. */
+        if (j == 0) {
+            errcode_ret = clEnqueueNDRangeKernel(context._cmd_queue_[j], context._kernel_[j], 2, NULL,
+                context.global_work_size, context.local_work_size, 0, NULL, &context.event_compute[j]);
+        }
+        else {
+            errcode_ret = clEnqueueNDRangeKernel(context._cmd_queue_[j], context._kernel_[j], 2, NULL,
+                context.global_work_size, context.local_work_size, 1, &context.event_compute[j - 1], &context.event_compute[j]);
+        }
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        clFlush(context._cmd_queue_[1]);
+
+        /* Read back the device buffer to the host array. */
+        if (j == 0) {
+            errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[j], context.BO_output_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index], 0, NULL, &context.event_read_C[j]);
+        }
+        else {
+            errcode_ret = clEnqueueReadBuffer(context._cmd_queue_[j], context.BO_output_dev, CL_FALSE, j * segment_in_bytes,
+                segment_in_bytes, (void*)&context.AoS_image_output[j * segment_in_index], 1, &context.event_read_C[j - 1], &context.event_read_C[j]);
+        }
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+
+        clFlush(context._cmd_queue_[2]);
+    }
+    for (int j = 0; j < n_cmd_queues; j++) {
         clFinish(context._cmd_queue_[j]);
     }
     CHECK_TIME_END(_start, _end, _freq, compute_time);

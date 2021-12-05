@@ -174,5 +174,6 @@ void clean_up_system(void);
 
 // [HW3]
 void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_segments);
+void use_multiple_segments_and_multiple_command_queues_depth_1(int n_cmd_queues);
 
 #endif // __CONTEXT_SOA_AOS__
