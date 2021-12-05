@@ -551,7 +551,7 @@ int main(int argc, char* argv[]) {
         switch (context.copy_compute_type) {
         case COPY_COMPUTE_TYPE_THREE_QUEUES_WITH_EVENTS:
             fprintf(stdout, "^^^ Copy compute type: THREE QUEUES (EVENTS) ^^^\n\n");
-            for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
+            for (int j = MAXIMUM_COMMAND_QUEUES; j >= 1; j >>= 1) {
                 // j : n_segments
                 fprintf(stdout, "\n^^^ Use three queues and events for %d-segmented kernel execution.\n", j);
                 use_multiple_segments_and_three_command_queues_with_events_breadth(j);
@@ -560,7 +560,7 @@ int main(int argc, char* argv[]) {
             break;
         case COPY_COMPUTE_TYPE_MULTIPLE_QUEUES_1:
             fprintf(stdout, "^^^ Copy compute type: MULTIPLE QUEUES ^^^\n\n");
-            for (int j = 1; j <= MAXIMUM_COMMAND_QUEUES; j <<= 1) {
+            for (int j = MAXIMUM_COMMAND_QUEUES; j >= 1; j >>= 1) {
                 // j : n_segments
                 fprintf(stdout, "\n^^^ Use multiple queues for %d-segmented kernel execution.\n", j);
                 use_multiple_segments_and_multiple_command_queues_depth_1(j);
@@ -675,7 +675,7 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
 
         // [HW3] Concurrency.
         offset_in_index = j * segment_in_index;
-        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);;
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);
 
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
     }
@@ -791,7 +791,7 @@ void use_multiple_segments_and_multiple_command_queues_depth_1(int n_cmd_queues)
 
                 // [HW3] Concurrency.
         offset_in_index = j * segment_in_index;
-        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);;
+        errcode_ret |= clSetKernelArg(context._kernel_[j], 9, sizeof(unsigned int), (void*)&offset_in_index);
 
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
     }

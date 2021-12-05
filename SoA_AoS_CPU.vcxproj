@@ -24,7 +24,7 @@
     <ProjectGuid>{4da1904c-42ff-43a0-bd8d-33b56a6ed0c3}</ProjectGuid>
     <RootNamespace>SoAAoSCPU</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Kernel_Optimization</ProjectName>
+    <ProjectName>Overlapping_Concurrency</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
