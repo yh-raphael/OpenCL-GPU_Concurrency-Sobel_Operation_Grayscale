@@ -34,13 +34,13 @@ void set_sobel_y_filter(int filter_size) {
 }
 
 int main(int argc, char* argv[]) {
-    char program_name[] = "Sogang CSEG475_5475 Kernel_Optimization_120210400";
+    char program_name[] = "Sogang CSEG475_5475 Overlapping Data Transfer and Kernel Execution - Yonghyeon Cho";
     fprintf(stdout, "\n###  %s\n\n", program_name);
     fprintf(stdout, "/////////////////////////////////////////////////////////////////////////\n");
     fprintf(stdout, "### INPUT FILE NAME = \t\t%s\n", INPUT_FILE_NAME);
     fprintf(stdout, "### OUTPUT FILE NAME = \t\t%s\n\n", OUTPUT_FILE_NAME);
 
-    fprintf(stdout, "### IMAGE OPERATION = ");
+    fprintf(stdout, "### IMAGE OPERATION = \t\t");
     switch (IMAGE_OPERATION) {
     case SoA_GS_CPU:
         fprintf(stdout, "Structure of Arrays (GRAYSCALE) on CPU\n");
@@ -75,8 +75,8 @@ int main(int argc, char* argv[]) {
     case Kernel_Optimized:
         fprintf(stdout, "Kernel Optimized version on GPU\n");
         break;
-    case Three_Queues:
-        fprintf(stdout, "Three Queues with events version on GPU\n");
+    case GPU_Concurrency:
+        fprintf(stdout, "GPU_Concurrency version\n");
         break;
     default:
         fprintf(stderr, "*** Error: unknown image operation...\n");
@@ -355,58 +355,59 @@ int main(int argc, char* argv[]) {
     }
 
     ////////////////////////////////// [HW3] Concurrency. ///////////////////////////////////
-    else if (IMAGE_OPERATION == Three_Queues) {
+    else if (IMAGE_OPERATION == GPU_Concurrency) {
         fprintf(stdout, "\n/////////////////////////////////////////////////////////////////////////\n");
         fprintf(stdout, "### NUMBER OF EXECUTIONS = \t%d\n\n", N_EXECUTIONS);
         fprintf(stdout, "### WORK-GROUP SIZE = \t\t(%d, %d)\n", LOCAL_WORK_SIZE_0, LOCAL_WORK_SIZE_1);
         fprintf(stdout, "### KERNEL SELECTION = \t\t%d\n", KERNEL_SELECTION);
         fprintf(stdout, "/////////////////////////////////////////////////////////////////////////\n\n");
+        //show_OpenCL_platform();
 
 
 
-
-
+        // 원래 코드: set_local_work_size_and_kernel_arguments_AoS_SO_KO_local()
         context.global_work_size[0] = context.image_width;
-        context.global_work_size[1] = context.image_height;
+        context.global_work_size[1] = context.image_height;     // 추후에 Segmentatinon으로 변경된다.
 
         context.local_work_size[0] = LOCAL_WORK_SIZE_0;
         context.local_work_size[1] = LOCAL_WORK_SIZE_1;
 
 
 
-
+        // 추가 코드: initialize_context()
         context.n_elements = context.image_width * context.image_height;
         context.buffer_size_in_bytes = sizeof(Pixel_Channels) * context.n_elements;
 //        context.AoS_image_input = context.AoS_image_midput = context.AoS_image_output = NULL;
         context.AoS_image_input = context.AoS_image_output = NULL;
 
-
 //        C.n_kernel_loop_iterations = N_KERNEL_LOOP_ITERATIONS;
 //        C.n_kernel_call_iterations = N_KERNEL_CALL_ITERATIONS;
 
-//        C.solution = (float*)malloc(sizeof(float) * C.n_elements);
-//        if (!C.solution) {
-//            fprintf(stderr, "*** Error: cannot allocate memory for solution array on host....\n");
-//            exit(EXIT_FAILURE);
-//        }
-// 
-//        C.copy_compute_type = COPY_COMPUTE_TYPE;
+        context.solution = (Pixel_Channels*) malloc(sizeof(float) * context.n_elements);
+        if (!context.solution) {
+            fprintf(stderr, "*** Error: cannot allocate memory for solution array on host....\n");
+            exit(EXIT_FAILURE);
+        }
+ 
+        context.copy_compute_type = COPY_COMPUTE_TYPE;
+        if (context.copy_compute_type != 1 && context.copy_compute_type != 2) {
+            fprintf(stderr, "***Error: cannot reslove the COPY_COMPUTE_TYPE!\n");
+            exit(EXIT_FAILURE);
+        }
 
         fprintf(stdout, "/***********************************************************************/\n");
         fprintf(stdout, "   - NUMBER OF DATA ELEMENTS = %d\n", context.n_elements);
-        fprintf(stdout, "   - GLOBAL WORK SIZE = %u\n", (unsigned int)context.global_work_size[0] * context.global_work_size[1]);
-//        fprintf(stdout, "   - LOCAL WORK SIZE = %u\n", (unsigned int)C.local_work_size[0]);
+        fprintf(stdout, "   - GLOBAL WORK SIZE [0] = %llu\n", (unsigned long long) context.global_work_size[0]);
+        fprintf(stdout, "   - GLOBAL WORK SIZE [1] = %llu\n", (unsigned long long) context.global_work_size[1]);
+        fprintf(stdout, "   - LOCAL WORK SIZE [0] = %u\n", (unsigned int)context.local_work_size[0]);
+        fprintf(stdout, "   - LOCAL WORK SIZE [1] = %u\n", (unsigned int)context.local_work_size[1]);
         fprintf(stdout, "   - KERNEL = %s in %s\n", KERNEL_NAME, OPENCL_C_PROG_FILE_NAME);
 //        fprintf(stdout, "   - NUMBER OF KERNEL LOOP ITERATIONS = %d\n", C.n_kernel_loop_iterations);
 //        fprintf(stdout, "   - NUMBER OF KERNEL CALL ITERATIONS = %d\n", C.n_kernel_call_iterations);
         fprintf(stdout, "   - NUMBER OF MAXIMUM COMMAND QUEUES = %d\n", MAXIMUM_COMMAND_QUEUES);
-//        fprintf(stdout, "   - COPY COMPUTE TYPE = %s\n",
-//            (C.copy_compute_type == 0) ? "THREE QUEUES WITHOUT EVENTS" :
-//            (C.copy_compute_type == 1) ? "THREE QUEUES WITH EVENTS" : "MULTIPLE QUEUES");
+        fprintf(stdout, "   - COPY COMPUTE TYPE = %s\n",
+            (context.copy_compute_type == 1) ? "THREE QUEUES WITH EVENTS" : "MULTIPLE QUEUES");
         fprintf(stdout, "/***********************************************************************/\n");
-
-
-
 
 
 
@@ -482,9 +483,9 @@ int main(int argc, char* argv[]) {
         context.AoS_image_output = (Pixel_Channels*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_output_pinned, CL_TRUE,
             CL_MAP_READ, 0, sizeof(Pixel_Channels) * context.image_height * context.image_width, 0, NULL, NULL, &errcode_ret);
 
-        context.data_filter_x = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_x_pinned, CL_TRUE,
+        context.sobel_filter_x.weights = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_x_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
-        context.data_filter_y = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_y_pinned, CL_TRUE,
+        context.sobel_filter_y.weights = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_y_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
         fprintf(stdout, "\n^^^ Three standard pointers to host pinned memory are mapped. ^^^\n");
 
@@ -503,6 +504,14 @@ int main(int argc, char* argv[]) {
                 tmp_ptr++; offset += 4;
             }
         }
+        // Generate filter_x data //
+        context.sobel_filter_x.width = SOBEL_FILTER_SIZE;
+        context.sobel_filter_x.weights = Sobel_x;
+        // Generate filter_y data //
+        context.sobel_filter_y.width = SOBEL_FILTER_SIZE;
+        context.sobel_filter_y.weights = Sobel_y;
+
+
 
         /* Create a program from OpenCL C source code. */
         context.prog_src.length = read_kernel_from_file(OPENCL_C_PROG_FILE_NAME, &context.prog_src.string);
@@ -561,12 +570,12 @@ int main(int argc, char* argv[]) {
             0, NULL, NULL);
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
-        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_x_pinned, context.data_filter_x,
-            0, NULL, NULL);
-        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
-        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_y_pinned, context.data_filter_y,
-            0, NULL, NULL);
-        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+//        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_x_pinned, context.sobel_filter_x.weights,
+//            0, NULL, NULL);
+//        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+//        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_y_pinned, context.data_filter_y,
+//            0, NULL, NULL);
+//        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         /* Free resources. */
 //        free(context.solution);
@@ -618,7 +627,7 @@ int main(int argc, char* argv[]) {
 
 void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_segments) {
     // 핵심 변환부.
-    context.global_work_size[1] = (context.n_elements / n_segments) / context.image_width;
+    context.global_work_size[1] = ( (context.n_elements / n_segments) / context.image_width ) + 2;      // Boundary handling!
     int segment_in_bytes = context.buffer_size_in_bytes / n_segments;
     int segment_in_index = context.n_elements / n_segments;
 
@@ -665,12 +674,12 @@ void use_multiple_segments_and_three_command_queues_with_events_breadth(int n_se
     }
 
 
-
+    //+ (int)((2) * sizeof(Pixel_Channels) * context.image_width)
     CHECK_TIME_START(_start, _freq);
     for (int j = 0; j < n_segments; j++) {
         // Move the input data from the host memory to the GPU device memory.
         errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_input_dev, CL_FALSE, j * segment_in_bytes,
-            segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);
+            segment_in_bytes, (void*)&context.AoS_image_input[j * segment_in_index], 0, NULL, NULL);  // Boundary handling!
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         errcode_ret = clEnqueueWriteBuffer(context._cmd_queue_[0], context.BO_filter_x_dev, CL_FALSE, 0,

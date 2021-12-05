@@ -61,7 +61,7 @@
     <None Include="Source\Kernel\Kernel-Naive.cl">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="Source\Kernel\Three_Queues.cl">
+    <None Include="Source\Kernel\GPU_Concurrency.cl">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>

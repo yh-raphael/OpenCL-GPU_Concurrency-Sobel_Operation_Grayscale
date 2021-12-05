@@ -93,7 +93,7 @@ typedef struct _Context {
     cl_mem BO_input_dev, BO_midput_dev, BO_output_dev, BO_filter_x_dev, BO_filter_y_dev;
     cl_mem BO_input_pinned, BO_midput_pinned, BO_output_pinned, BO_filter_x_pinned, BO_filter_y_pinned;
 //    Pixel_Channels *data_input, *data_midput, *data_output;
-    int *data_filter_x, *data_filter_y;
+//    int *data_filter_x, *data_filter_y;
 
     int n_elements;
     size_t buffer_size_in_bytes;
@@ -102,6 +102,9 @@ typedef struct _Context {
     cl_event event_write_B[MAXIMUM_COMMAND_QUEUES];
     cl_event event_compute[MAXIMUM_COMMAND_QUEUES];
     cl_event event_read_C[MAXIMUM_COMMAND_QUEUES];
+
+    Pixel_Channels* solution;
+    int copy_compute_type;
 
 } Context;
 

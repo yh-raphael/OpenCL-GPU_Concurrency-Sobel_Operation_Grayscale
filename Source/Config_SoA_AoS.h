@@ -24,7 +24,9 @@
 #define		Kernel_Naive		8	// Not optimized version.
 #define		Kernel_Advanced		9	// Vector type + Loop Unrolling optimization.
 #define		Kernel_Optimized	10	// Vector type + Loop Unrolling + Shared Memory optimization.
-#define		Three_Queues		11	// Sol2
+
+// [HW3] GPU Concurrency.
+#define		GPU_Concurrency		11	// Sol2
 
 
 // Input file로 사용할 이미지 file 이름.
@@ -41,7 +43,14 @@
 
 /////////////////////////////////////////////////////////////////////////////////////
 #define		INPUT_IMAGE						2
-#define		IMAGE_OPERATION				Three_Queues
+#define		IMAGE_OPERATION				GPU_Concurrency		// [HW3]
+
+// [HW3]
+// 두 가지 Solution!
+#define COPY_COMPUTE_TYPE_THREE_QUEUES_WITH_EVENTS		1
+#define COPY_COMPUTE_TYPE_MULTIPLE_QUEUES_1 			2
+// 여기서 Solution 선택!
+#define	COPY_COMPUTE_TYPE	COPY_COMPUTE_TYPE_THREE_QUEUES_WITH_EVENTS
 /////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -108,8 +117,8 @@
 
 // [HW3] Concurrency.
 #elif KERNEL_SELECTION == 11
-#define OPENCL_C_PROG_FILE_NAME "Source/Kernel/Three_Queues.cl"
-#define KERNEL_NAME "Three_Queues"
+#define OPENCL_C_PROG_FILE_NAME "Source/Kernel/GPU_Concurrency.cl"
+#define KERNEL_NAME "GPU_Concurrency"
 #endif
 
 #define		STAT_FILE_NAME				"Data/stat_file_KO.txt"
@@ -125,7 +134,6 @@
 					N_EXECUTIONS, KERNEL_SELECTION, (gws)[0], (gws)[1], (lws)[0], (lws)[1]);
 
 // [HW3] Concurrency.
-#define		MAXIMUM_COMMAND_QUEUES		32
-
+#define	MAXIMUM_COMMAND_QUEUES		32
 
 #endif
