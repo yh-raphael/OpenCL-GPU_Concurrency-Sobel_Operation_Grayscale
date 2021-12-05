@@ -483,9 +483,9 @@ int main(int argc, char* argv[]) {
         context.AoS_image_output = (Pixel_Channels*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_output_pinned, CL_TRUE,
             CL_MAP_READ, 0, sizeof(Pixel_Channels) * context.image_height * context.image_width, 0, NULL, NULL, &errcode_ret);
 
-        context.sobel_filter_x.weights = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_x_pinned, CL_TRUE,
+        context.data_filter_x = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_x_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
-        context.sobel_filter_y.weights = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_y_pinned, CL_TRUE,
+        context.data_filter_y = (int*)clEnqueueMapBuffer(context._cmd_queue_[0], context.BO_filter_y_pinned, CL_TRUE,
             CL_MAP_WRITE, 0, sizeof(int) * 5 * 5, 0, NULL, NULL, &errcode_ret);
         fprintf(stdout, "\n^^^ Three standard pointers to host pinned memory are mapped. ^^^\n");
 
@@ -505,14 +505,22 @@ int main(int argc, char* argv[]) {
             }
         }
         // Generate filter_x data //
-        context.sobel_filter_x.width = SOBEL_FILTER_SIZE;
-        context.sobel_filter_x.weights = Sobel_x;
+        int* tmp_ptr_x = context.data_filter_x;
+        for (int i = 0; i < SOBEL_FILTER_SIZE * SOBEL_FILTER_SIZE; i++) {
+            tmp_ptr_x[i] = Sobel_x[i];
+        }
         // Generate filter_y data //
-        context.sobel_filter_y.width = SOBEL_FILTER_SIZE;
-        context.sobel_filter_y.weights = Sobel_y;
-
-
-
+        int* tmp_ptr_y = context.data_filter_y;
+        for (int i = 0; i < SOBEL_FILTER_SIZE * SOBEL_FILTER_SIZE; i++) {
+            tmp_ptr_y[i] = Sobel_y[i];
+        }
+/*
+        CHECK_TIME_START(_start, _freq);
+        compute_solution_on_host();
+        CHECK_TIME_END(_start, _end, _freq, compute_time);
+        fprintf(stdout, "      * Time to generate the solution data on host = %.3fms\n", compute_time);
+        fprintf(stdout, "\n^^^ Test data are ready. ^^^\n\n");
+*/
         /* Create a program from OpenCL C source code. */
         context.prog_src.length = read_kernel_from_file(OPENCL_C_PROG_FILE_NAME, &context.prog_src.string);
         context.program = clCreateProgramWithSource(context.context, 1, (const char**)&context.prog_src.string,
@@ -570,12 +578,12 @@ int main(int argc, char* argv[]) {
             0, NULL, NULL);
         if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
-//        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_x_pinned, context.sobel_filter_x.weights,
-//            0, NULL, NULL);
-//        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
-//        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_y_pinned, context.data_filter_y,
-//            0, NULL, NULL);
-//        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_x_pinned, context.data_filter_x,
+            0, NULL, NULL);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
+        errcode_ret = clEnqueueUnmapMemObject(context._cmd_queue_[0], context.BO_filter_y_pinned, context.data_filter_y,
+            0, NULL, NULL);
+        if (CHECK_ERROR_CODE(errcode_ret)) exit(EXIT_FAILURE);
 
         /* Free resources. */
 //        free(context.solution);
